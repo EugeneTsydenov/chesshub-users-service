@@ -1,0 +1,54 @@
+tasks:
+  run:local:
+    env:
+      NODE_ENV: "local"
+    cmd: air
+    desc: "Start auto compile watching with local env"
+
+  run:dev:
+    env:
+      NODE_ENV: "development"
+    cmd: air
+    desc: "Start auto compile watching with dev env"
+
+  run:prod:
+    env:
+      NODE_ENV: "production"
+    cmd: air
+    desc: "Start auto compile watching with prod env"
+
+  run:compose:
+    cmd: docker-compose up
+    desc: "Start dependencies in docker container"
+
+  build:
+    cmd: go build cmd/chesshub-account0-service/main.go
+    desc: "Build app"
+
+  test:
+    cmd: go test ./...
+    desc: "Run tests"
+
+  migrate:up:
+    cmd: migrate -path=migrations -database "postgresql://postgres:postgres@localhost:5432/chesshub?sslmode=disable" -verbose up
+    desc: "Run up migration"
+
+  migrate:down:
+    cmd: migrate -path=migrations -database "postgresql://postgres:postgres@localhost:5432/chesshub?sslmode=disable" -verbose down
+    desc: "Run down migration"
+
+  migrate:generate:
+    vars:
+      NAME: '{{.NAME | default "migration"}}'
+    cmds:
+      - migrate create -ext=sql -dir=migrations -seq "{{.NAME}}"
+    desc: "Generate migration file with a name"
+
+
+#  lint:
+#    cmd: golangci-lint run
+#    desc: "Run linter"
+#
+#  lint:fix:
+#    cmd: golangci-lint run --fix
+#    desc: "Run fixing lint errors"
