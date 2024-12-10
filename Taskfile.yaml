@@ -2,8 +2,7 @@ version: '3'
 
 tasks:
   run:local:
-    env:
-      NODE_ENV: "local"
+    dotenv: ['.env.local']
     cmd: air
     desc: "Start auto compile watching with local env"
 
