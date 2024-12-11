@@ -1,0 +1,18 @@
+syntax = "proto3";
+option go_package = "github.com/EugeneTsydenov/go-users-service/proto";
+package proto;
+
+service UsersService {
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+}
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string displayName = 3;
+  string password = 4;
+}
+
+message RegisterResponse {
+  string message = 1;
+}
