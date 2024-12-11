@@ -19,7 +19,7 @@ func Load() (*Config, error) {
 	var c Config
 
 	if err := envconfig.Process(ctx, &c); err != nil {
-		return nil, err
+		return &c, err
 	}
 
 	return &c, nil
