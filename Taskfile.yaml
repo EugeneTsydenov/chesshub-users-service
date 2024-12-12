@@ -5,7 +5,14 @@ tasks:
     dotenv: ['.env.local']
     cmd: air
     desc: "Start auto compile watching with local env"
-
+  protoc:
+    cmd:
+      protoc
+      --go_out=internal/generated
+      --go_opt=paths=source_relative
+      --go-grpc_out=internal/generated
+      --go-grpc_opt=paths=source_relative
+      proto/users.proto
   run:dev:
     env:
       NODE_ENV: "development"
@@ -46,10 +53,10 @@ tasks:
     desc: "Generate migration file with a name"
 
 
-#  lint:
-#    cmd: golangci-lint run
-#    desc: "Run linter"
-#
-#  lint:fix:
-#    cmd: golangci-lint run --fix
-#    desc: "Run fixing lint errors"
+  lint:
+    cmd: golangci-lint run
+    desc: "Run linter"
+
+  lint:fix:
+    cmd: golangci-lint run --fix
+    desc: "Run fixing lint errors"
