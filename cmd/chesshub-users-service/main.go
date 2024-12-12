@@ -2,19 +2,23 @@ package main
 
 import (
 	"context"
-	"github.com/EugeneTsydenov/chesshub-users-service/internal/app"
 	"log"
+
+	"github.com/EugeneTsydenov/chesshub-users-service/internal/app"
 )
 
 func main() {
 	ctx := context.Background()
 
-	a := app.New()
-	err := a.Run(ctx)
-
+	a, err := app.New(ctx)
 	if err != nil {
-		log.Fatalf("Application running with error: %v", err)
+		log.Fatalf("Failed to initialize app: %v", err)
 	}
 
-	log.Print("Application running successfully")
+	err = a.Run(ctx)
+	if err != nil {
+		log.Fatalf("Application terminated with error: %v", err)
+	}
+
+	log.Print("Application terminated successfully")
 }
