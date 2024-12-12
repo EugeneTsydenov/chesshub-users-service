@@ -2,6 +2,8 @@ package config
 
 import (
 	"context"
+	"fmt"
+
 	"github.com/sethvargo/go-envconfig"
 )
 
@@ -10,16 +12,14 @@ type Config struct {
 }
 
 type DatabaseConfig struct {
-	DatabaseUrl string `env:"DATABASE_URL, required"`
+	URL string `env:"DATABASE_URL, required"`
 }
 
-func Load() (*Config, error) {
-	ctx := context.Background()
-
+func Load(ctx context.Context) (*Config, error) {
 	var c Config
 
 	if err := envconfig.Process(ctx, &c); err != nil {
-		return &c, err
+		return nil, fmt.Errorf("failed to load configuration: %w", err)
 	}
 
 	return &c, nil
